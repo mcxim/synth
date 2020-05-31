@@ -4,7 +4,7 @@ module Notes where
 
 import           Data.Function                  ( on )
 
-data Let = A | B | C | D | E | F | G deriving (Show, Eq)
+data Let = A | B | C | D | E | F | G deriving (Show, Read, Eq)
 
 data Acc = (:♮) | (:♭) | (:♯) deriving (Show, Eq)
 
