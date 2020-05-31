@@ -5,7 +5,9 @@ import           Numeric                        ( showFFloat )
 
 
 bpm :: Float
-bpm = 120.0
+bpm = 113.0
+-- mystery: 113.0
+-- hurricane: 82.0
 
 sampleRate = 48000 :: Int
 step = 1 / fromIntegral sampleRate :: Float
