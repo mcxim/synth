@@ -1,11 +1,16 @@
 module Notes where
+
 {-# LANGUAGE UnicodeSyntax #-}
 
 import           Data.Function                  ( on )
 
 data Let = A | B | C | D | E | F | G deriving (Show, Eq)
 
-data Acc = Natural | Flat | Sharp deriving (Show, Eq)
+data Acc = (:♮) | (:♭) | (:♯) deriving (Show, Eq)
+
+nat = (:♮)
+flt = (:♭)
+srp = (:♯)
 
 type Oct = Int
 
@@ -27,9 +32,9 @@ noteDiff = (-) `on` getNum
 getNum :: Note -> Int
 getNum (Note letter acc oct) = oct * 12 + appAcc acc (value letter)
  where
-  appAcc Natural num = num + 0
-  appAcc Flat    num = num - 1
-  appAcc Sharp   num = num + 1
+  appAcc (:♮) num = num + 0
+  appAcc (:♭) num = num - 1
+  appAcc (:♯) num = num + 1
 
 value :: Let -> Int
 value C = 0
@@ -40,5 +45,5 @@ value G = 7
 value A = 9
 value B = 11
 
-defAnchor = (Note A Natural 4, 440) :: Anchor
+defAnchor = (Note A (:♮) 4, 440) :: Anchor
 
