@@ -8,6 +8,8 @@ import           Data.Char                      ( isNumber
 parseNotes :: String -> [(Float, Maybe Note)]
 parseNotes = map parseWord . words
 
+-- Parsing strings of notes of format <duration><note letter><optional accidental><octave number>
+-- For example: ".25E4 .25F#4 .25G4 .25A4 .5F#4 .25D4 1E4"
 parseWord :: String -> (Float, Maybe Note)
 parseWord word =
   let (dur, rest) = break isLetter ('0':word)
@@ -27,7 +29,7 @@ parseAcc c | c `elem` ["n", ""]  = nat
            | otherwise           = nat
 
 
-mystery = "20p .25G3 .25A3 .25C4 .25A3 .5E4 .25p .5E4 .25p .75D4 .75p "
+mystery = ".25G3 .25A3 .25C4 .25A3 .5E4 .25p .5E4 .25p .75D4 .75p "
        <> ".25G3 .25A3 .25C4 .25A3 .5D4 .25p .5D4 .25p .75C4 .75p "
        <> ".25G3 .25A3 .25C4 .25A3 1C4 .5D4 .2A3 .3B3 .5A3 .5G3 .5p .5G3 .2C4 .8D4 1C4 1p "
        <> ".25G3 .25A3 .25C4 .25A3 .5E4 .25p .5E4 .25p .75D4 .75p "
@@ -41,5 +43,7 @@ hurricane = ".5p .25A3 .25G3 .25A3 .25p .25A3 .25G3 .25A3 .25G3 .25E3 .25p .25E3
 
 papaoutai = "20p 1p .5A3 .5A3 .25p .5A3 .25A3 .5C4 .5D4 1p .5A3 .5A3 .25p .5A3 .25A3 .5C4 .5B3 "
          <> "1p .5A3 .5A3 .25p .5A3 .25A3 .5C4 .5D4 .5D4 .5C4 .5B3 .5C4 .25A3 .5A3 .25A3 .5A3 .5A3"
+
+lick = ".25E4 .25F#4 .25G4 .25A4 .5F#4 .25D4 1E4"
 
 -- how to play: play $ volume 30 $ playTups $ parseNotes mystery
