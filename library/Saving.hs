@@ -10,7 +10,7 @@ outputFile = "output.bin" :: FilePath
 save :: [Float] -> IO ()
 save = B.writeFile outputFile . BU.toLazyByteString . fold . map BU.floatLE
 
--- example:    play . volume 50 . duration 2 . sinWave defAnchor $ Note D srp 4
+-- example: play $ volume 30 $ playTups $ parseNotes "1A2 .5p .5A2 .75C3 .75A2 .5G2 1F2 1p 1E2 1p"
 play :: [Float] -> IO ()
 play wave =
   save wave
