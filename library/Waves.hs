@@ -22,19 +22,26 @@ volume vol = map (* (vol / 100))
 duration :: Float -> [Float] -> [Float]
 duration = take . round . (* (48000.0 * 60.0 / bpm))
 
-playTups :: [(Float, Note)] -> [Float]
-playTups = concatMap (\(dur, note) -> duration dur $ sinWave defAnchor note)
+playTups :: [(Float, Maybe Note)] -> [Float]
+playTups = concatMap
+  (\(dur, mnote) -> duration dur $ case mnote of
+    Just note -> sinWave defAnchor note
+    Nothing   -> repeat 0
+  )
 
 sevenNationArmy = playTups
-  [ (10  , Just (Note A nat 0))
-  , (1.5 , Just (Note A nat 2))
+  [ (1.0 , Just (Note A nat 2))
+  , (0.5 , Nothing)
   , (0.5 , Just (Note A nat 2))
   , (0.75, Just (Note C nat 3))
   , (0.75, Just (Note A nat 2))
   , (0.5 , Just (Note G nat 2))
-  , (2.0 , Just (Note F nat 2))
-  , (2.0 , Just (Note E nat 2))
-  , (1.5 , Just (Note A nat 2))
+  , (1.0 , Just (Note F nat 2))
+  , (1.0 , Nothing)
+  , (1.0 , Just (Note E nat 2))
+  , (1.0 , Nothing)
+  , (1.0 , Just (Note A nat 2))
+  , (0.5 , Nothing)
   , (0.5 , Just (Note A nat 2))
   , (0.75, Just (Note C nat 3))
   , (0.75, Just (Note A nat 2))
