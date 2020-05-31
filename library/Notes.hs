@@ -1,4 +1,5 @@
 module Notes where
+{-# LANGUAGE UnicodeSyntax #-}
 
 import           Data.Function                  ( on )
 
@@ -10,25 +11,23 @@ type Oct = Int
 
 data Note = Note Let Acc Oct deriving (Show, Eq)
 
-type Frequency = Double
+type Frequency = Float
 
 type Anchor = (Note, Frequency)
 
 freq :: Anchor -> Note -> Frequency
 freq (anchorNote, anchorFreq) note = anchorFreq * (a ** n)
  where
-  a = 2.0 ** (1 / 12) :: Double
+  a = 2.0 ** (1 / 12) :: Float
   n = fromIntegral $ noteDiff note anchorNote
 
 noteDiff :: Note -> Note -> Int
 noteDiff = (-) `on` getNum
 
 getNum :: Note -> Int
-getNum (Note letter acc oct) = oct * 12 + appAcc
-  acc
-  (value letter)
+getNum (Note letter acc oct) = oct * 12 + appAcc acc (value letter)
  where
-  appAcc Natural num = num
+  appAcc Natural num = num + 0
   appAcc Flat    num = num - 1
   appAcc Sharp   num = num + 1
 
@@ -40,4 +39,6 @@ value F = 5
 value G = 7
 value A = 9
 value B = 11
+
+defAnchor = (Note A Natural 4, 440) :: Anchor
 

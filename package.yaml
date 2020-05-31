@@ -23,6 +23,8 @@ ghc-options: -Wall
 library:
   dependencies:
   - base
+  - process
+  - bytestring
   source-dirs: library
 
 executables:
