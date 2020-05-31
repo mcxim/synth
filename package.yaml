@@ -3,11 +3,11 @@
 # this file: <https://github.com/sol/hpack>.
 name: synth
 version: '0.0.0'
-github: "githubuser/synth"
+github: "mcxim/synth"
 license: MIT
-author: "Author name here"
-maintainer: "Author name here"
-# synopsis: A new Haskeleton package.
+author: "Maxim Gelfand"
+maintainer: ""
+synopsis: Creating sounds with haskell.
 # description: synth is a new Haskeleton package.
 # category: Other
 
