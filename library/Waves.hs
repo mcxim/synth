@@ -7,8 +7,8 @@ import           Numeric                        ( showFFloat )
 bpm :: Float
 bpm = 120.0
 
-mapPoint :: (Float -> a) -> Point -> (a, a)
-mapPoint f (Point x y) = (f x, f y)
+sampleRate = 48000 :: Int
+step = 1 / fromIntegral sampleRate :: Float
 
 sinWave :: Anchor -> Note -> [Float]
 sinWave anchor note = map (sin . (* (2 * pi * freq anchor note))) [0, step ..]
@@ -58,8 +58,8 @@ sevenNationArmy = playTups
 
 data Point = Point Float Float
 
-sampleRate = 48000 :: Int
-step = 1 / fromIntegral sampleRate :: Float
+mapPoint :: (Float -> a) -> Point -> (a, a)
+mapPoint f (Point x y) = (f x, f y)
 
 showFullPrecision :: Float -> String
 showFullPrecision x = showFFloat Nothing x ""
