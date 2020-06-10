@@ -26,10 +26,17 @@ duration = take . round . (* (48000.0 * 60.0 / bpm))
 
 playTups :: [(Float, Maybe Note)] -> [Float]
 playTups = concatMap
-  (\(dur, mnote) -> duration dur $ case mnote of
+  (\(dur, mnote) -> attackRelease $ duration dur $ case mnote of
     Just note -> sinWave defAnchor note
     Nothing   -> repeat 0
   )
+
+attackRelease :: [Float] -> [Float]
+attackRelease points =
+  let rise    = [0, 0.002..]
+      attack  = zipWith min rise (replicate (length points) 1)
+      release = reverse attack
+  in  zipWith3 (\x y z -> x * y * z) points attack release
 
 sevenNationArmy = playTups
   [ (20  , Nothing)
