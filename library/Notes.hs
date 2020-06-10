@@ -46,6 +46,18 @@ rangeUp start = start : (rangeUp (next start))
 rangeDown :: Note -> [Note]
 rangeDown start = start : (rangeDown (prev start))
 
+majorFrom :: Note -> [Note]
+majorFrom = appIntervals [2, 2, 1, 2, 2, 2, 1]
+
+minorFrom :: Note -> [Note]
+minorFrom = appIntervals [2, 1, 2, 2, 1, 2, 2]
+
+appIntervals :: [Int] -> Note -> [Note]
+appIntervals intervals note = note : (go intervals note)
+ where
+  go []       _ = []
+  go (x : xs) n = newNote : (go xs newNote) where newNote = (iterate next n) !! x
+
 
 type Frequency = Float
 
