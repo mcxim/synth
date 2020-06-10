@@ -32,7 +32,8 @@ playTups = concatMap
   )
 
 sevenNationArmy = playTups
-  [ (1.0 , Just (Note A nat 2))
+  [ (20  , Nothing)
+  , (1.0 , Just (Note A nat 2))
   , (0.5 , Nothing)
   , (0.5 , Just (Note A nat 2))
   , (0.75, Just (Note C nat 3))
