@@ -25,6 +25,7 @@ library:
   - base
   - process
   - bytestring
+  - gloss
   source-dirs: library
 
 executables:

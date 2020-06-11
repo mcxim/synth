@@ -14,5 +14,5 @@ save = B.writeFile outputFile . BU.toLazyByteString . fold . map BU.floatLE
 play :: [Float] -> IO ()
 play wave =
   save wave
-    >> runCommand ("ffplay -showmode 1 -f f32le -ar 48000 " ++ outputFile)
+    >> runCommand ("ffplay -showmode 2 -f f32le -ar 48000 " ++ outputFile)
     >> return ()
