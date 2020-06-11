@@ -2,16 +2,16 @@ module Intervals where
 
 import Notes
 
-next (Note B (:♮) num) = Note C nat (succ num)
-next (Note E (:♮) num) = Note F nat num
-next (Note l (:♭) num) = Note l nat num
-next (Note l (:♯) num) = Note (succ l) nat num
-next (Note l (:♮) num) = Note l srp num
-prev (Note C (:♮) num) = Note B nat (pred num)
-prev (Note F (:♮) num) = Note E nat num
-prev (Note l (:♯) num) = Note l nat num
-prev (Note l (:♭) num) = Note (pred l) nat num
-prev (Note l (:♮) num) = Note l flt num
+next (Note B (:♮) num) = Note C        (:♮) (succ num)
+next (Note E (:♮) num) = Note F        (:♮) num
+next (Note l (:♭) num) = Note l        (:♮) num
+next (Note l (:♯) num) = Note (succ l) (:♮) num
+next (Note l (:♮) num) = Note l        (:♯) num
+prev (Note C (:♮) num) = Note B        (:♮) (pred num)
+prev (Note F (:♮) num) = Note E        (:♮) num
+prev (Note l (:♯) num) = Note l        (:♮) num
+prev (Note l (:♭) num) = Note (pred l) (:♮) num
+prev (Note l (:♮) num) = Note l        (:♭) num
 
 
 range :: Note -> Note -> [Note]
