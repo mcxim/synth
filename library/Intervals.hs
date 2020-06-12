@@ -33,7 +33,6 @@ minorFrom = scale [0, 2, 1, 2, 2, 1, 2, 2]
 down5 :: Note -> [(Float, Maybe Note)]
 down5 anchor =
   zipWith (\dur note -> (dur, Just note)) [1, 1, 1, 1, 2] (scale [7, -2, -1, -2, -2] anchor)
-    <> [(2, Nothing)]
 
 scale :: [Int] -> Note -> [Note]
 scale []       _ = []

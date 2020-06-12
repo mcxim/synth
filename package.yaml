@@ -26,6 +26,8 @@ library:
   - process
   - bytestring
   - gloss
+  # - gloss-export
+
   source-dirs: library
 
 executables:

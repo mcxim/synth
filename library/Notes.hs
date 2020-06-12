@@ -14,13 +14,22 @@ instance Enum Let where
   
 table = [(A, B), (B, C), (C, D), (D, E), (E, F), (F, G), (G, A)]
 
-data Acc = (:♮) | (:♭) | (:♯) deriving (Show, Eq)
+data Acc = (:♮) | (:♭) | (:♯) deriving (Eq)
+
+instance Show Acc where
+  show (:♮) = ""
+  show (:♭) = "b"
+  show (:♯) = "#"
+
 
 nat = (:♮)
 flt = (:♭)
 srp = (:♯)
 
-data Note = Note Let Acc Oct deriving (Show, Eq)
+data Note = Note Let Acc Oct deriving (Eq)
+
+instance Show Note where
+  show (Note l a o) = show l <> show a <> " (" <> show o <> ")"
 
 type Oct = Int
 

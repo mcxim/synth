@@ -2,32 +2,47 @@ module Visual where
 
 import           Graphics.Gloss
 import           Notes
+import           Intervals
+import           Data.List                      ( intersperse )
+import           Data.Maybe                     ( fromMaybe )
+import           Waves
+import           Data.Bifunctor                 ( first )
 
-glossShowAcc :: Acc -> String
-glossShowAcc acc | acc == nat = ""
-                 | acc == flt = "b"
-                 | acc == srp = "#"
 
-glossShow :: Note -> String
-glossShow (Note l a o) = show l <> glossShowAcc a <> " (" <> show o <> ")"
+genSingingNotes :: (Note, Note) -> [(Float, Maybe Note)]
+genSingingNotes = concat . intersperse [(2.0, Nothing)] . map down5 . uncurry range
 
-slides :: [(Float, Note)]
-slides = [(1.0, Note A nat 4), (0.5, Note C flt 7)]
+slides = genSingingNotes ((Note B flt 3), (Note C flt 3))
 
-accSlides = scanl1 (\(x, _) (y, s) -> (x + y, s)) slides
+adjustTime = scanl1 (\(x, _) (y, s) -> (x + y, s))
+  . map (\(dur, mnote) -> (dur * (60.0 / bpm), mnote))
+
+slides' :: [(Float, Maybe Note)]
+slides' = adjustTime slides
+
+screenWidth = 720
+screenHeight = 480
+
+animation time =
+  Translate (-340) (-20)
+    . Scale 0.5 0.5
+    . color white
+    . Text
+    . maybe "" show
+    . snd
+    . head
+    . dropWhile ((< time) . fst)
+    $ slides'
 
 runAnim :: IO ()
-runAnim = animate
-  (InWindow "Window name" (700, 100) (10, 10))
-  black
-  (\s ->
-    Translate (-340) (-20)
-      . Scale 0.5 0.5
-      . color white
-      . Text
-      . glossShow
-      . snd
-      . head
-      . dropWhile ((< s) . fst)
-      $ accSlides
-  )
+runAnim = animate (InWindow "Window name" (screenWidth, screenHeight) (600, 300))
+                  black
+                  animation
+
+saveAnim = exportPicturesToGif 4
+                               LoopingNever
+                               (screenWidth, screenHeight)
+                               black
+                               "output.gif"
+                               animation
+                               [0.0, 0.04 ..]

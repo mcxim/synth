@@ -5,7 +5,7 @@ import           Numeric                        ( showFFloat )
 
 
 bpm :: Float
-bpm = 113.0
+bpm = 120.0
 -- mystery: 113.0
 -- hurricane: 82.0
 
