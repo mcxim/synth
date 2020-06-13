@@ -27,3 +27,6 @@ play wave =
   save wave
     >> runCommand ("ffplay -showmode 1 -f f32le -ar 48000 " ++ outputFile)
     >> return ()
+
+onlyPlay :: IO ()
+onlyPlay = void $ runCommand ("ffplay -showmode 1 -f f32le -ar 48000 " ++ outputFile)

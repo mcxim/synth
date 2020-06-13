@@ -26,10 +26,13 @@ nat = (:♮)
 flt = (:♭)
 srp = (:♯)
 
-data Note = Note Let Acc Oct deriving (Eq)
+data Note = Note Let Acc Oct 
 
 instance Show Note where
   show (Note l a o) = show l <> show a <> " (" <> show o <> ")"
+
+instance Eq Note where
+  (==) = (==) `on` (freq defAnchor)
 
 type Oct = Int
 
